@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biochemistry Practice Exam - Chapters 5-9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBFAF6;--panel:#fff;--ink:#1B1E22;--muted:#5E646C;--line:#E3E0D7;--line2:#CFCBC0;
+ --accent:#0E5A5A;--soft:#E4F0EE;--ok:#15803D;--okbg:#E7F5EB;--bad:#B3261E;--badbg:#FBECEA;--gold:#B58100}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151A;--panel:#191D24;--ink:#EAEAE6;--muted:#A3A9B2;
+ --line:#2A3038;--line2:#39414B;--accent:#5FC9BE;--soft:#12312F;--ok:#79D18F;--okbg:#0D2F1A;--bad:#F09595;--badbg:#3A1616;--gold:#E4B93C}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+ font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%;
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2{font-family:"Fraunces",Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.2;margin:0 0 .4em}
+h1{font-size:clamp(1.7rem,4vw,2.6rem)}
+h2{font-size:clamp(1.2rem,3vw,1.7rem)}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,30px)}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 22px;
+ font:inherit;font-weight:500;cursor:pointer;border:1px solid transparent;transition:.15s;text-decoration:none}
+.btn.primary{background:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.btn.primary{color:#08201e}}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:var(--line2);color:var(--ink);background:transparent}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.small{padding:8px 15px;font-size:.9rem}
+header.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);
+ backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.barin{display:flex;align-items:center;gap:12px;min-height:58px;flex-wrap:wrap}
+.barin b{font-family:"Fraunces",serif;font-size:1rem;font-weight:600}
+.pill{font-size:.82rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 11px;white-space:nowrap}
+.spacer{margin-left:auto}
+.prog{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+main{padding:22px 0 60px}
+.qhead{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.qnum{font-family:"Fraunces",serif;font-size:1.5rem;color:var(--accent)}
+.tag{font-size:.74rem;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+.qtext{font-size:clamp(1.02rem,2.3vw,1.16rem);font-weight:500;margin:6px 0 18px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line2);border-radius:14px;
+ padding:13px 15px;cursor:pointer;background:transparent;text-align:left;font:inherit;color:inherit;transition:.12s;width:100%}
+.opt:hover{border-color:var(--accent)}
+.opt .k{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;
+ font-size:.82rem;font-weight:600;color:var(--muted)}
+.opt.sel{border-color:var(--accent);background:var(--soft)}
+.opt.sel .k{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.opt.sel .k{color:#08201e}}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.locked{cursor:default}
+.nav{display:flex;gap:10px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:7px;margin-top:14px}
+.grid button{aspect-ratio:1;border-radius:10px;border:1px solid var(--line2);background:transparent;color:var(--muted);
+ font:inherit;font-size:.85rem;cursor:pointer}
+.grid button.done{background:var(--soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.grid button.cur{outline:2px solid var(--accent);outline-offset:1px}
+.grid button.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.grid button.no{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+details.map{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--panel)}
+details.map summary{cursor:pointer;font-size:.92rem;color:var(--muted)}
+.score{font-family:"Fraunces",serif;font-size:clamp(2.6rem,9vw,4rem);line-height:1;color:var(--accent)}
+.bd{display:grid;gap:10px;margin:20px 0 0}
+.bdrow{display:flex;align-items:center;gap:12px;font-size:.94rem}
+.bdrow span:first-child{flex:1}
+.bar2{flex:none;width:min(46%,220px);height:8px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar2 i{display:block;height:100%;background:var(--accent)}
+.rev{border-top:1px solid var(--line);padding-top:22px;margin-top:22px}
+.revq{padding:18px 0;border-bottom:1px solid var(--line)}
+.revq:last-child{border-bottom:0}
+.exp{margin-top:12px;border-left:3px solid var(--accent);background:var(--soft);border-radius:0 12px 12px 0;
+ padding:12px 16px;font-size:.95rem}
+.exp b{color:var(--accent)}
+.flag{font-size:.8rem;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:3px 10px;background:transparent;cursor:pointer;font-family:inherit}
+.flag.on{background:var(--gold);color:#fff}
+.grid button.flag2{border-color:var(--gold);color:var(--gold)}
+ul.tips{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:.95rem}
+ul.tips li{margin-bottom:6px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap barin">
+  <b>Biochemistry Practice Exam</b>
+  <span class="pill" id="chip">Chapters 5-9</span>
+  <span class="spacer"></span>
+  <span class="pill" id="clock">00:00</span>
+  <span class="pill" id="count">0 / 60</span>
+</div><div class="wrap" style="padding-bottom:8px"><div class="prog"><i id="progbar"></i></div></div></header>
+
+<main class="wrap">
+  <!-- START -->
+  <section id="start">
+    <div class="card">
+      <h1>60-question practice exam</h1>
+      <p class="muted">Chapters 5-9: enzymes, bioenergetics and oxidative phosphorylation, carbohydrates, metabolism and glycolysis, the TCA cycle and the PDH complex.</p>
+      <ul class="tips">
+        <li>One best answer per question. Nothing is revealed until you submit.</li>
+        <li>Weighted toward the things that get asked quickly: where in the cell a process happens, which steps are irreversible, which are rate limiting, and which coenzymes and cofactors are needed.</li>
+        <li>Flag anything you want to revisit; the question map at the bottom jumps anywhere.</li>
+        <li>Keys 1-4 select an answer, arrow keys move between questions.</li>
+      </ul>
+      <div class="nav">
+        <button class="btn primary" id="startbtn">Start the exam</button>
+        <button class="btn ghost" id="resumebtn" hidden>Resume saved attempt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAM -->
+  <section id="exam" class="hidden">
+    <div class="card">
+      <div class="qhead"><span class="qnum" id="qnum">1</span><span class="tag" id="qtag"></span>
+        <span class="spacer"></span><button class="flag" id="flagbtn">Flag</button></div>
+      <div class="qtext" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="nav">
+        <button class="btn ghost" id="prev">Previous</button>
+        <button class="btn primary" id="next">Next</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="submit">Submit exam</button>
+      </div>
+    </div>
+    <details class="map" open><summary>Question map</summary><div class="grid" id="grid"></div></details>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="card">
+      <h1>Results</h1>
+      <div class="score"><span id="pct">0%</span></div>
+      <p class="muted" id="scoreline"></p>
+      <div class="bd" id="breakdown"></div>
+      <div class="nav">
+        <button class="btn ghost" id="retake">Retake</button>
+        <button class="btn ghost" id="wrongonly">Show only what I missed</button>
+      </div>
+      <div class="rev" id="review"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+var Q = [{"n": 1, "ch": "Enzymes", "q": "An enzyme accelerates a reaction primarily because it:", "opts": ["Lowers the activation energy by stabilizing the transition state", "Makes the free energy of the products more negative", "Shifts the equilibrium toward product", "Raises the free energy of the substrate above the transition state"], "a": 0, "e": "Enzymes provide an alternate pathway with a lower Ea and stabilize the transition state. They do not change the free energy of substrates or products, so Keq and the position of equilibrium are unchanged; only the rate changes."}, {"n": 2, "ch": "Enzymes", "q": "An inactive enzyme protein lacking its non-protein component is called:", "opts": ["A prosthetic group", "An apoenzyme", "A holoenzyme", "A zymogen"], "a": 1, "e": "Apoenzyme = protein alone, inactive. Holoenzyme = apoenzyme plus its non-protein part. A metal ion (Zn2+, Fe2+) is a cofactor; a small organic molecule is a coenzyme; a coenzyme permanently bound and regenerated is a prosthetic group."}, {"n": 3, "ch": "Enzymes", "q": "Enzyme X has a Km of 0.1 mM for its substrate and enzyme Y a Km of 10 mM. Which statement is correct?", "opts": ["Enzyme X has the higher affinity for the substrate", "Enzyme Y has the higher affinity for the substrate", "Enzyme X will have the higher Vmax", "Km values cannot be compared unless enzyme concentrations are equal"], "a": 0, "e": "Km is the [S] giving one half Vmax and reflects affinity: low Km = high affinity. Km is a property of the enzyme-substrate pair and does not vary with enzyme concentration (Vmax does)."}, {"n": 4, "ch": "Enzymes", "q": "A drug raises the apparent Km of an enzyme but leaves Vmax unchanged. The drug is:", "opts": ["A positive allosteric effector", "An irreversible inhibitor", "A competitive inhibitor", "A noncompetitive inhibitor"], "a": 2, "e": "Competitive inhibitors bind the active site and are outcompeted by high [S], so Vmax is reached and unchanged while apparent Km rises. Noncompetitive inhibitors bind elsewhere, lower Vmax and leave Km unchanged."}, {"n": 5, "ch": "Enzymes", "q": "On a Lineweaver-Burk plot, the inhibited and uninhibited lines intersect on the y axis. This indicates:", "opts": ["Irreversible inhibition", "Noncompetitive inhibition", "Allosteric activation", "Competitive inhibition"], "a": 3, "e": "The y intercept is 1/Vmax. A shared y intercept means Vmax is unchanged, which is competitive inhibition; the x intercept (-1/Km) moves toward zero because apparent Km increased."}, {"n": 6, "ch": "Enzymes", "q": "Atorvastatin lowers plasma cholesterol by acting as a:", "opts": ["Irreversible covalent inhibitor of HMG-CoA synthase", "Noncompetitive inhibitor of HMG-CoA reductase", "Competitive inhibitor of the last step of cholesterol synthesis", "Competitive inhibitor of HMG-CoA reductase, the rate-limiting step of cholesterol synthesis"], "a": 3, "e": "Statins are structural analogs of the natural substrate and compete for the active site of HMG-CoA reductase, the rate-limiting enzyme of de novo cholesterol synthesis. Drugs classically target rate-limiting steps."}, {"n": 7, "ch": "Enzymes", "q": "A plot of initial velocity versus [S] is sigmoidal rather than hyperbolic. This enzyme:", "opts": ["Follows Michaelis-Menten kinetics with a very low Km", "Is allosteric and typically catalyzes the committed step of its pathway", "Has only one substrate-binding site", "Must be irreversibly inhibited by its product"], "a": 1, "e": "Allosteric (multisubunit, cooperative) enzymes give sigmoidal curves like the hemoglobin O2 curve, do not obey Michaelis-Menten kinetics, and usually sit at the committed step of a pathway."}, {"n": 8, "ch": "Enzymes", "q": "In feedback inhibition of a branched pathway, the end product usually inhibits:", "opts": ["A freely reversible isomerase near the middle", "The first irreversible step unique to the pathway", "Every enzyme of the pathway equally", "The last step of the pathway"], "a": 1, "e": "Regulation is placed at the first committed (first irreversible, unique) step so that intermediates are not wastefully made. This is the same logic that makes PFK-1 and isocitrate dehydrogenase the control points of their pathways."}, {"n": 9, "ch": "Enzymes", "q": "Covalent regulation of enzymes most often involves:", "opts": ["Reversible binding of an effector at an allosteric site", "Proteolytic removal of the active site", "Acetylation of lysine residues using acetyl-CoA", "Phosphorylation of serine, threonine or tyrosine residues, with ATP as the phosphate donor"], "a": 3, "e": "Protein kinases transfer phosphate from ATP onto Ser, Thr or Tyr; phosphoprotein phosphatases remove it. Allosteric effectors bind noncovalently and are a separate mechanism."}, {"n": 10, "ch": "Enzymes", "q": "Which change would you expect from an irreversible inhibitor rather than a reversible one?", "opts": ["Inhibition is relieved by adding more substrate", "Vmax is unchanged but apparent Km rises", "Activity is not recovered by diluting the enzyme-inhibitor complex", "The inhibitor binds only the free enzyme, never the ES complex"], "a": 2, "e": "Irreversible inhibitors form covalent bonds, so dilution does not restore activity. Reversible inhibitors bind noncovalently and dissociate on dilution."}, {"n": 11, "ch": "Enzymes", "q": "Isoenzymes are useful clinically because they:", "opts": ["Catalyze different reactions in the same tissue", "Have identical amino acid sequences in all organs", "Are the only enzymes actively secreted into plasma", "Catalyze the same reaction but differ in charge and tissue distribution, so they can be separated and localized"], "a": 3, "e": "Isoenzymes catalyze the same reaction but differ in amino acid composition and charge, allowing electrophoretic separation. Organs contain characteristic proportions, which is why creatine kinase isoenzymes help in diagnosing myocardial infarction."}, {"n": 12, "ch": "Bioenergetics", "q": "A reaction has a positive standard free energy change. Under cellular conditions it can still proceed forward if:", "opts": ["The temperature is lowered enough", "The ratio of product to substrate is kept low", "The reaction is at equilibrium", "The enzyme lowers the standard free energy change"], "a": 1, "e": "delta G depends on actual concentrations: delta G = delta G0 + RT ln([product]/[substrate]). Keeping product low (for example by a following exergonic step) makes the log term large and negative. Enzymes never change delta G0."}, {"n": 13, "ch": "Bioenergetics", "q": "Energetically unfavorable reactions are typically driven in cells by:", "opts": ["Coupling to a strongly exergonic reaction through a shared common intermediate", "Raising the activation energy of the reverse reaction", "Lowering the temperature of the compartment", "Increasing the Km of the enzyme for its substrate"], "a": 0, "e": "delta G values are additive along a pathway, so an endergonic step is pulled along by coupling to a large negative delta G step, usually ATP hydrolysis (about -7.3 kcal/mol per terminal phosphate) through a common intermediate."}, {"n": 14, "ch": "Bioenergetics", "q": "Which component of the electron transport chain is NOT embedded in the inner mitochondrial membrane?", "opts": ["Complex III", "Complex I", "Complex IV", "Cytochrome c"], "a": 3, "e": "All ETC components except cytochrome c are integral to the inner membrane. Cytochrome c is a small mobile carrier on the intermembrane side, which is why it can escape to the cytosol and trigger caspase activation in apoptosis."}, {"n": 15, "ch": "Bioenergetics", "q": "NADH donates its electrons at Complex I to which prosthetic group first?", "opts": ["FMN", "Coenzyme Q", "FAD", "Heme a3"], "a": 0, "e": "Complex I (NADH dehydrogenase) passes electrons NADH to FMN to Fe-S centers to CoQ, pumping 4 H+. FAD is the flavin of Complex II; heme a+a3 belongs to Complex IV."}, {"n": 16, "ch": "Bioenergetics", "q": "Electrons entering the chain at Complex II yield less ATP than those entering at Complex I because:", "opts": ["FADH2 carries only one electron", "Complex II transfers electrons directly to cytochrome c", "Complex II does not pump protons across the inner membrane", "Complex II is located in the outer mitochondrial membrane"], "a": 2, "e": "Protons are pumped at Complexes I, III and IV only. Electrons from succinate enter at Complex II, bypassing the Complex I pump, so fewer H+ are translocated and less ATP is made (2 per FADH2 versus 3 per NADH by the slide convention)."}, {"n": 17, "ch": "Bioenergetics", "q": "Coenzyme Q is unique among the electron carriers of the chain because it:", "opts": ["Is permanently bound to Complex III", "Contains copper atoms required to reduce O2", "Accepts electrons only from Complex I", "Is a lipid-soluble quinone rather than a protein, and is mobile within the membrane"], "a": 3, "e": "With the exception of CoQ, all members of the chain are proteins. CoQ is a mobile lipid-soluble quinone that collects electrons from Complexes I and II and from other mitochondrial dehydrogenases and delivers them to Complex III."}, {"n": 18, "ch": "Bioenergetics", "q": "A patient exposed to cyanide has blocked Complex IV. Immediately after the block you would expect:", "opts": ["Continued ATP synthesis because the proton gradient is unaffected", "Carriers before the block to be reduced and those after it to be oxidized", "All carriers in the chain to become reduced", "All carriers in the chain to become oxidized"], "a": 1, "e": "A respiratory inhibitor dams the electron flow: everything upstream accumulates in the reduced state and everything downstream is left oxidized. With Complex IV blocked, O2 cannot be reduced and oxidative phosphorylation stops."}, {"n": 19, "ch": "Bioenergetics", "q": "Oligomycin stops ATP synthesis AND electron transport because it:", "opts": ["Plugs the Fo proton channel so the gradient cannot be dissipated", "Covalently inhibits isocitrate dehydrogenase", "Binds cytochrome c and blocks electron transfer to Complex IV", "Carries protons across the membrane, collapsing the gradient"], "a": 0, "e": "Oligomycin binds the Fo domain and closes the H+ channel. Because the pH and electrical gradients cannot be dissipated, pumping more protons against the steep gradient becomes impossible and electron transport halts. This is what tight coupling means."}, {"n": 20, "ch": "Bioenergetics", "q": "2,4-Dinitrophenol causes rapid electron transport with very little ATP production. The mechanism is:", "opts": ["It is a lipophilic proton carrier that dissipates the H+ gradient, releasing the energy as heat", "It inhibits the adenine nucleotide antiporter, trapping ATP in the matrix", "It blocks Complex III so electrons bypass ATP synthase", "It phosphorylates ATP synthase and inactivates it"], "a": 0, "e": "Uncouplers shuttle H+ back across the inner membrane without passing through ATP synthase. Energy appears as heat. UCP1 (thermogenin) in brown fat does this physiologically for nonshivering thermogenesis; high-dose aspirin does it as a toxicity."}, {"n": 21, "ch": "Bioenergetics", "q": "In the chemiosmotic model, the immediate driving force for ATP synthesis is:", "opts": ["Direct transfer of phosphate from NADH to ADP", "The electrical and pH gradient of H+ across the inner mitochondrial membrane", "The negative standard reduction potential of O2", "GTP produced by substrate-level phosphorylation"], "a": 1, "e": "Ten H+ are pumped per NADH oxidized, creating a proton-motive force. H+ re-entering through Fo drives rotation of the c ring and conformational changes in the three beta subunits of F1 that phosphorylate ADP; one full rotation yields 3 ATP."}, {"n": 22, "ch": "Bioenergetics", "q": "Electrons flow spontaneously along the chain from:", "opts": ["The matrix side toward the outer mitochondrial membrane", "Carriers with more negative E0 toward carriers with more positive E0", "Carriers with more positive E0 toward carriers with more negative E0", "Carriers of low molecular weight to carriers of high molecular weight"], "a": 1, "e": "The more negative the E0, the greater the tendency to lose electrons. NADH (very negative) gives electrons up and O2 (very positive) accepts them. Transporting a pair from NADH to O2 releases about 52.6 kcal, enough for 3 ATP (P/O ratio 3:1)."}, {"n": 23, "ch": "Carbohydrates", "q": "Glucose and galactose differ only in the configuration of the hydroxyl at carbon 4. They are therefore:", "opts": ["Unrelated isomers", "Anomers", "C-4 epimers", "Enantiomers"], "a": 2, "e": "Epimers differ at one specific carbon: glucose and galactose at C-4, glucose and mannose at C-2. Galactose and mannose differ at two carbons (2 and 4), so they are isomers but not epimers."}, {"n": 24, "ch": "Carbohydrates", "q": "When an aldose cyclizes, the new asymmetric center created at carbon 1 is called the:", "opts": ["Epimeric carbon", "Enantiomeric carbon", "Anomeric carbon", "Glycosidic carbon"], "a": 2, "e": "Cyclization makes the carbonyl carbon (C-1 in aldoses, C-2 in ketoses) asymmetric. The alpha and beta forms produced are anomers (diastereomers), and they interconvert in solution by mutarotation."}, {"n": 25, "ch": "Carbohydrates", "q": "Lactose consists of:", "opts": ["Glucose linked to fructose by an alpha(1->2) bond", "Two glucose units joined alpha(1->4)", "Two glucose units joined alpha(1->6)", "Galactose linked to glucose by a beta(1->4) bond"], "a": 3, "e": "Lactose = galactose + glucose, beta(1->4). Sucrose = glucose + fructose, alpha(1->2). Maltose = glucose + glucose, alpha(1->4). Isomaltose is the alpha(1->6) disaccharide."}, {"n": 26, "ch": "Carbohydrates", "q": "Salivary and pancreatic alpha-amylase produce dextrins rather than free glucose because the enzyme:", "opts": ["Cannot hydrolyze the alpha(1->6) branch points", "Only works on beta(1->4) bonds of cellulose", "Is inactivated as soon as it reaches the duodenum", "Cannot hydrolyze alpha(1->4) bonds"], "a": 0, "e": "Alpha-amylase hydrolyzes random alpha(1->4) bonds but not alpha(1->6) branches, so amylopectin and glycogen leave a mixture of short branched and unbranched oligosaccharides called dextrins."}, {"n": 27, "ch": "Carbohydrates", "q": "Starch digestion pauses in the stomach because:", "opts": ["The high gastric acidity inactivates salivary alpha-amylase", "The stomach secretes a specific amylase inhibitor", "Pancreatic amylase is only released after gastric emptying is complete", "Dextrins cannot be further digested"], "a": 0, "e": "Salivary alpha-amylase is inactivated by stomach acid. Digestion resumes when bicarbonate from the pancreas neutralizes the chyme in the small intestine and pancreatic alpha-amylase takes over."}, {"n": 28, "ch": "Carbohydrates", "q": "The final steps of carbohydrate digestion are carried out by disaccharidases that are:", "opts": ["Transmembrane proteins of the brush border on the luminal surface of enterocytes", "Bacterial enzymes of the colon", "Secreted into the lumen by the pancreas", "Cytosolic enzymes inside enterocytes"], "a": 0, "e": "Lactase, sucrase, isomaltase, maltase and trehalase are integral proteins of the apical brush border of duodenal and upper jejunal enterocytes. This is why mucosal injury causes a temporary acquired disaccharidase deficiency."}, {"n": 29, "ch": "Carbohydrates", "q": "Glucose and galactose enter the enterocyte across the apical membrane by:", "opts": ["Simple diffusion through the lipid bilayer", "SGLT-1, a secondary active transporter that requires Na+ symport", "GLUT-2, by facilitated diffusion", "GLUT-5, a Na+-independent facilitated transporter"], "a": 1, "e": "Apical uptake of glucose and galactose uses SGLT-1 (Na+ symport, secondary active). Fructose uses GLUT-5 (facilitated, Na+ independent). All three leave the cell into portal blood via GLUT-2 on the basolateral side."}, {"n": 30, "ch": "Carbohydrates", "q": "An adult develops bloating, cramps and watery diarrhea after milk. The diarrhea is osmotic because:", "opts": ["Undigested lactose remains in the lumen and draws water in, and colonic bacteria ferment it to gas and small acids", "Galactose inhibits the Na+/K+ ATPase of enterocytes", "Lactose is absorbed and then secreted into the colon", "Lactase deficiency blocks Na+ absorption in the ileum"], "a": 0, "e": "Undigested, osmotically active carbohydrate pulls water into the large intestine; bacterial fermentation adds two and three carbon acids plus large volumes of CO2 and H2, giving cramps, diarrhea and flatulence. Age-dependent loss of lactase is by far the most common cause."}, {"n": 31, "ch": "Carbohydrates", "q": "A sugar attached through its anomeric carbon to an -NH2 group of another molecule forms:", "opts": ["An O-glycosidic bond", "An N-glycosidic bond", "A phosphodiester bond", "A peptide bond"], "a": 1, "e": "Attachment to an -NH2 gives an N-glycosidic link (as in nucleosides); attachment to an -OH gives an O-glycosidic link. Glycosidic bonds are made by glycosyltransferases using nucleotide sugars."}, {"n": 32, "ch": "Glycolysis", "q": "Glycolysis takes place in which compartment?", "opts": ["The inner mitochondrial membrane", "The cytosol", "The endoplasmic reticulum lumen", "The mitochondrial matrix"], "a": 1, "e": "All ten reactions of glycolysis occur in the cytosol. The next steps (PDH complex and the TCA cycle) require pyruvate to be carried into the mitochondrial matrix; glucose-6-phosphatase, in contrast, works in the ER lumen."}, {"n": 33, "ch": "Glycolysis", "q": "Compared with hexokinase, hepatic glucokinase has:", "opts": ["A lower Km and is found in muscle and brain", "The same Km but is inhibited by fructose 1,6-bisphosphate", "A lower Km and a lower Vmax, and is inhibited by glucose 6-phosphate", "A higher Km and a higher Vmax, and is not inhibited by glucose 6-phosphate"], "a": 3, "e": "Hexokinases I-III have low Km/high affinity and are inhibited by their product G6P, so most tissues phosphorylate glucose even at low concentrations. Glucokinase (hexokinase IV) in liver and pancreatic beta cells has a high Km and high Vmax, is not inhibited by G6P, and is regulated indirectly by fructose 6-phosphate and glucose through glucokinase regulatory protein."}, {"n": 34, "ch": "Glycolysis", "q": "The rate-limiting and committed step of glycolysis is catalyzed by:", "opts": ["Glyceraldehyde 3-phosphate dehydrogenase", "Phosphofructokinase-1", "Hexokinase", "Pyruvate kinase"], "a": 1, "e": "PFK-1 (fructose 6-phosphate to fructose 1,6-bisphosphate) is the most important control point, the rate-limiting and committed step. Hexokinase and pyruvate kinase are irreversible and regulated, but they are not the committed step."}, {"n": 35, "ch": "Glycolysis", "q": "Which combination correctly describes allosteric control of PFK-1?", "opts": ["Inhibited by AMP and citrate; activated by ATP", "Inhibited by fructose 2,6-bisphosphate; activated by citrate", "Inhibited by ATP and citrate; activated by AMP and fructose 2,6-bisphosphate", "Inhibited by glucose 6-phosphate; activated by NADH"], "a": 2, "e": "ATP signals energy abundance and citrate signals that the TCA cycle is well supplied, so both inhibit. AMP signals depletion and activates. Fructose 2,6-bisphosphate is the most potent activator and overrides high ATP."}, {"n": 36, "ch": "Glycolysis", "q": "Fructose 2,6-bisphosphate is made from fructose 6-phosphate by PFK-2. During fasting in the liver:", "opts": ["Glucagon raises cAMP, the kinase domain dominates, F2,6-BP rises and glycolysis accelerates", "Glucagon raises cAMP, PFK-2 is phosphorylated, the phosphatase domain dominates, F2,6-BP falls and glycolysis slows", "Insulin falls, F2,6-BP rises and gluconeogenesis is inhibited", "PFK-2 is inactivated by dephosphorylation, raising F2,6-BP"], "a": 1, "e": "PFK-2 is bifunctional. In the liver isozyme, PKA phosphorylation inactivates the kinase domain and activates the phosphatase domain, so fasting (high glucagon, low insulin) lowers F2,6-BP, inhibiting glycolysis and favoring gluconeogenesis. The cardiac isozyme behaves oppositely."}, {"n": 37, "ch": "Glycolysis", "q": "Which set lists the three irreversible reactions of glycolysis?", "opts": ["Hexokinase, aldolase, enolase", "PFK-1, phosphoglycerate kinase, enolase", "Hexokinase, PFK-1, pyruvate kinase", "Glucokinase, triose phosphate isomerase, pyruvate kinase"], "a": 2, "e": "The three irreversible (and therefore regulated) steps are hexokinase/glucokinase, PFK-1 and pyruvate kinase. These are exactly the three steps gluconeogenesis must bypass with different enzymes."}, {"n": 38, "ch": "Glycolysis", "q": "Arsenate poisoning prevents net ATP production in glycolysis because it:", "opts": ["Blocks Complex IV of the electron transport chain", "Inhibits pyruvate kinase irreversibly", "Binds lipoic acid and blocks the PDH complex", "Substitutes for Pi at the G3P dehydrogenase step, forming a product that hydrolyzes spontaneously and bypasses 1,3-BPG"], "a": 3, "e": "Pentavalent arsenate competes with Pi at glyceraldehyde 3-phosphate dehydrogenase; the arsenate product hydrolyzes to 3-phosphoglycerate, skipping the phosphoglycerate kinase ATP step. Trivalent arsenite is the form that binds lipoic acid and knocks out the PDH complex."}, {"n": 39, "ch": "Glycolysis", "q": "In the red blood cell, some 1,3-BPG is diverted to 2,3-BPG. The consequence is:", "opts": ["Conversion of 2,3-BPG to lactate for export", "Increased ATP yield in the red cell", "Increased affinity of hemoglobin for O2", "Improved O2 delivery to tissues at the cost of the ATP normally made at the phosphoglycerate kinase step"], "a": 3, "e": "Bisphosphoglycerate mutase makes 2,3-BPG, which binds deoxyhemoglobin and promotes O2 unloading; a phosphatase returns it to 3-phosphoglycerate. Because the shunt bypasses phosphoglycerate kinase, that ATP is lost."}, {"n": 40, "ch": "Glycolysis", "q": "A child has chronic nonspherocytic hemolytic anemia from pyruvate kinase deficiency. Red cells lyse because:", "opts": ["The cells cannot make 2,3-BPG", "NADPH production for glutathione falls", "Mature red cells lack mitochondria and depend entirely on glycolysis for the ATP that maintains cell shape and ion pumps", "Pyruvate accumulates and is toxic to the membrane"], "a": 2, "e": "Without mitochondria, the red cell's only ATP source is glycolysis, so a block at pyruvate kinase starves the ion pumps and the cells die early. Severity depends partly on how much compensatory 2,3-BPG the cell makes; heterozygotes resist severe malaria."}, {"n": 41, "ch": "Glycolysis", "q": "Per molecule of glucose, anaerobic glycolysis yields:", "opts": ["A net of 4 ATP and 2 NADH", "A net of 2 ATP and no net NADH", "A net of 2 ATP and 2 FADH2", "A net of 2 ATP and 2 NADH"], "a": 1, "e": "Anaerobically the NADH made at the G3P dehydrogenase step is consumed again by lactate dehydrogenase, so there is no net NADH; the net is 2 ATP. Aerobically the ATP yield is the same but 2 NADH survive and are oxidized by the chain."}, {"n": 42, "ch": "Glycolysis", "q": "Cytosolic NADH made in glycolysis requires the malate-aspartate or glycerol 3-phosphate shuttle because:", "opts": ["NADH must first be converted to FADH2 to be used", "The inner mitochondrial membrane is impermeable to NADH", "The outer mitochondrial membrane lacks porins", "NADH is unstable in the cytosol"], "a": 1, "e": "The inner membrane is impermeable to NADH, so only the reducing equivalents are carried across on metabolite carriers. The malate-aspartate shuttle regenerates matrix NADH, while the glycerol 3-phosphate shuttle delivers electrons to FAD and yields less ATP."}, {"n": 43, "ch": "Glycolysis", "q": "Carboxylation of pyruvate to oxaloacetate:", "opts": ["Produces acetyl CoA for fatty acid synthesis", "Is reversible and occurs in the cytosol", "Requires thiamine pyrophosphate and occurs only in yeast", "Is irreversible, requires biotin, and occurs in the mitochondrial matrix"], "a": 3, "e": "Pyruvate carboxylase is a biotin-dependent, irreversible mitochondrial enzyme. It replenishes the TCA cycle (anaplerosis) and supplies oxaloacetate for gluconeogenesis; it is activated by acetyl CoA."}, {"n": 44, "ch": "PDH / TCA", "q": "The pyruvate dehydrogenase complex requires five coenzymes. Which list is correct?", "opts": ["Pyridoxal phosphate, biotin, FMN, NAD+ and CoA", "Thiamine pyrophosphate, lipoic acid, FAD, NAD+ and CoA", "Biotin, thiamine pyrophosphate, FAD, NADP+ and CoA", "Thiamine pyrophosphate, biotin, lipoic acid, FAD and NADP+"], "a": 1, "e": "E1 uses TPP, E2 uses lipoic acid and CoA, E3 uses FAD and NAD+. The alpha-ketoglutarate dehydrogenase complex uses exactly the same five, which is why one poison can disable both."}, {"n": 45, "ch": "PDH / TCA", "q": "Pyruvate dehydrogenase kinase is activated by ATP, acetyl CoA and NADH. The physiologic consequence is that:", "opts": ["Pyruvate is shunted toward acetyl CoA during fasting", "E1 is phosphorylated and inactivated when the cell is energy-replete", "E1 is dephosphorylated and activated when the cell is energy-replete", "The complex becomes irreversibly inhibited"], "a": 1, "e": "Products and energy signals turn on the kinase, which phosphorylates and inactivates E1. Pyruvate itself inhibits the kinase, so a rising pyruvate load keeps the complex on; Ca2+ activates PDH phosphatase, which is important in contracting skeletal muscle."}, {"n": 46, "ch": "PDH / TCA", "q": "Arsenite poisoning causes accumulation of pyruvate and lactate because it:", "opts": ["Blocks the pyruvate carrier of the inner mitochondrial membrane", "Forms a stable complex with the thiol groups of lipoic acid, disabling PDH and alpha-ketoglutarate dehydrogenase", "Competes with Pi at glyceraldehyde 3-phosphate dehydrogenase", "Inhibits lactate dehydrogenase"], "a": 1, "e": "Trivalent arsenic (arsenite) binds lipoic acid, so every lipoic acid-dependent complex (PDH, alpha-ketoglutarate dehydrogenase, branched-chain alpha-keto acid dehydrogenase) fails. The brain is especially affected. Pentavalent arsenate is the one that hits the glycolytic G3P step."}, {"n": 47, "ch": "PDH / TCA", "q": "Citrate synthase is regulated mainly by:", "opts": ["Activation by NADH and ATP", "Competitive inhibition by malonate", "Product inhibition by citrate and by the availability of oxaloacetate", "Covalent phosphorylation by PKA"], "a": 2, "e": "The condensation of acetyl CoA with OAA is irreversible with a strongly negative delta G0 and is inhibited by its product, citrate. Substrate availability matters too: binding OAA greatly increases the enzyme's affinity for acetyl CoA. Malonate inhibits succinate dehydrogenase."}, {"n": 48, "ch": "PDH / TCA", "q": "Aconitase, which isomerizes citrate to isocitrate, is:", "opts": ["A biotin-dependent carboxylase", "An iron-sulfur protein", "A thiamine-dependent decarboxylase", "A flavoprotein using FAD"], "a": 1, "e": "Aconitase (aconitate hydratase) is an Fe-S protein that moves a hydroxyl group via cis-aconitate; the reaction is freely reversible and not a control point."}, {"n": 49, "ch": "PDH / TCA", "q": "Which TCA enzyme catalyzes the first oxidative decarboxylation, producing the first NADH and the first CO2, and is a rate-limiting step?", "opts": ["Isocitrate dehydrogenase", "Citrate synthase", "Malate dehydrogenase", "Alpha-ketoglutarate dehydrogenase"], "a": 0, "e": "Isocitrate dehydrogenase converts isocitrate to alpha-ketoglutarate irreversibly, releasing the first CO2 and the first NADH. It is allosterically activated by ADP and Ca2+ and inhibited by ATP and NADH."}, {"n": 50, "ch": "PDH / TCA", "q": "The only substrate-level phosphorylation in the TCA cycle occurs at the step catalyzed by:", "opts": ["Succinate thiokinase (succinyl CoA synthetase)", "Fumarase", "Succinate dehydrogenase", "Isocitrate dehydrogenase"], "a": 0, "e": "Cleaving the high-energy thioester bond of succinyl CoA is coupled to GDP + Pi forming GTP. Nucleoside diphosphate kinase then interconverts GTP and ATP."}, {"n": 51, "ch": "PDH / TCA", "q": "Succinate dehydrogenase is unique among TCA cycle enzymes because it:", "opts": ["Is located in the cytosol", "Catalyzes an irreversible, rate-limiting step", "Is embedded in the inner mitochondrial membrane and is Complex II of the electron transport chain", "Produces NADH rather than FADH2"], "a": 2, "e": "Every other TCA enzyme is soluble in the matrix. Succinate dehydrogenase sits in the inner membrane with FAD as its coenzyme and hands electrons directly to CoQ as Complex II, which is the structural link between the cycle and the chain. It is competitively inhibited by malonate."}, {"n": 52, "ch": "PDH / TCA", "q": "The malate dehydrogenase reaction has a positive delta G0, yet it proceeds in the direction of oxaloacetate because:", "opts": ["NADH accumulates and pulls the reaction forward", "The strongly exergonic citrate synthase reaction keeps oxaloacetate concentrations very low", "The enzyme lowers the standard free energy change of the reaction", "It is coupled to GTP hydrolysis"], "a": 1, "e": "This is the bioenergetics principle applied inside the cycle: consuming the product keeps the product/substrate ratio low, making delta G negative even though delta G0 is positive."}, {"n": 53, "ch": "PDH / TCA", "q": "Using the ratios in your lecture slides, complete oxidation of one pyruvate to CO2 yields how many ATP?", "opts": ["12", "10", "15", "38"], "a": 2, "e": "One turn of the cycle gives 3 NADH, 1 FADH2 and 1 GTP. With the PDH step adding a fourth NADH, the chain makes 14 ATP (3 per NADH, 2 per FADH2) plus 1 from GTP, for 15 ATP per pyruvate; the cycle itself accounts for 12 per acetyl CoA."}, {"n": 54, "ch": "PDH / TCA", "q": "Which statement about the pyruvate dehydrogenase complex is correct?", "opts": ["It is not part of the TCA cycle and its reaction is irreversible, so acetyl CoA cannot be converted back to pyruvate", "Its reaction is freely reversible under physiologic conditions", "It is the first enzyme of the TCA cycle", "It works in the intermembrane space"], "a": 0, "e": "PDH links glycolysis to the cycle but is not a cycle enzyme. Because the step is irreversible, carbons that enter as acetyl CoA cannot return to glucose, which is exactly why fatty acids cannot be converted to glucose. E1 deficiency is the most common biochemical cause of congenital lactic acidosis."}, {"n": 55, "ch": "PDH / TCA", "q": "A patient with thiamine deficiency accumulates pyruvate and lactate. The best explanation is that thiamine pyrophosphate is required by:", "opts": ["Pyruvate carboxylase and acetyl CoA carboxylase", "E1 of the PDH complex and the alpha-ketoglutarate dehydrogenase complex", "Succinate dehydrogenase and fumarase", "Lactate dehydrogenase and malate dehydrogenase"], "a": 1, "e": "TPP is the E1 coenzyme in both oxidative decarboxylation complexes. Without it, pyruvate cannot enter the cycle and is shunted to lactate. Biotin is the pyruvate carboxylase cofactor; FAD serves succinate dehydrogenase."}, {"n": 56, "ch": "Integration", "q": "Which sequence correctly traces a glucose carbon from the blood to CO2, with the right compartments?", "opts": ["Cytosol (glycolysis) -> pyruvate carried into matrix -> PDH complex in matrix -> TCA cycle in matrix", "Cytosol (glycolysis) -> PDH complex in cytosol -> TCA cycle in matrix", "Matrix (glycolysis) -> PDH in matrix -> TCA cycle in the inner membrane", "Cytosol (glycolysis) -> TCA cycle in the cytosol -> chain in the matrix"], "a": 0, "e": "Knowing where each block of the map sits is half the exam: glycolysis is cytosolic, the pyruvate carrier of the inner membrane brings pyruvate into the matrix, and PDH plus the cycle run in the matrix while the chain works in the inner membrane."}, {"n": 57, "ch": "Integration", "q": "Which grouping of coenzymes and their vitamin/cofactor sources is correct for the steps listed?", "opts": ["PDH uses biotin; pyruvate carboxylase uses TPP; succinate dehydrogenase uses NAD+", "PDH uses TPP, lipoate, FAD, NAD+, CoA; pyruvate carboxylase uses biotin; succinate dehydrogenase uses FAD", "PDH uses NADP+; pyruvate carboxylase uses lipoate; succinate dehydrogenase uses FMN", "All three enzymes use NAD+ exclusively"], "a": 1, "e": "Cofactor matching is high-yield because it is quick to ask. Oxidative decarboxylations need TPP and lipoate; carboxylations need biotin; the FAD-linked dehydrogenases (succinate dehydrogenase, E3) feed electrons at the flavin level."}, {"n": 58, "ch": "Integration", "q": "A cell has abundant ATP, NADH and citrate. Which pattern of flux is expected?", "opts": ["PFK-1 activated by citrate and the cycle accelerated", "PDH phosphatase activated and pyruvate pushed into acetyl CoA", "Pyruvate kinase activated by ATP", "PFK-1 and isocitrate dehydrogenase inhibited, PDH kinase active, so glycolysis and the cycle slow"], "a": 3, "e": "The same energy signals act at every control point: ATP and NADH inhibit PFK-1, isocitrate dehydrogenase and alpha-ketoglutarate dehydrogenase, and they switch on PDH kinase to shut off the PDH complex. Citrate additionally inhibits PFK-1 as a signal that the cycle is saturated."}, {"n": 59, "ch": "Integration", "q": "Why can a block in oxidative phosphorylation cause lactic acidosis even though the block is not in glycolysis?", "opts": ["Glycolysis stops entirely and pyruvate accumulates in the matrix", "Lactate dehydrogenase is directly activated by cyanide", "NADH cannot be reoxidized by the chain, so the cell relies on lactate dehydrogenase to regenerate NAD+ for glycolysis", "Pyruvate carboxylase is inhibited by low O2"], "a": 2, "e": "Glycolysis needs a steady supply of NAD+ at the G3P dehydrogenase step. With the chain blocked or O2 absent, the only way to regenerate NAD+ is to reduce pyruvate to lactate, which is why hypoxia, cyanide, PDH deficiency and circulatory collapse all raise lactate."}, {"n": 60, "ch": "Integration", "q": "A step described as irreversible in a metabolic map is important mainly because:", "opts": ["It occurs without an enzyme", "It consumes no energy", "It is a regulated control point and must be bypassed by a separate enzyme in the opposite pathway", "It can run in either direction depending on substrate concentration"], "a": 2, "e": "Irreversible steps are where regulation is placed, and the reverse pathway must use different enzymes (glucose 6-phosphatase, fructose 1,6-bisphosphatase, and PEP carboxykinase with pyruvate carboxylase undo the three glycolytic ones). Rate-limiting steps are usually among these irreversible steps."}];
+var LET = ["A","B","C","D","E"];
+var KEY = "biochem_exam_ch5_9_v1";
+var state = {i:0, ans:{}, flags:{}, started:0, elapsed:0, done:false};
+var timer = null, wrongOnly = false;
+
+function $(s){return document.querySelector(s)}
+function save(){try{localStorage.setItem(KEY, JSON.stringify(state))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function answered(){return Object.keys(state.ans).length}
+function fmt(s){var m=Math.floor(s/60), x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+
+function tick(){
+  if(state.done) return;
+  state.elapsed = Math.floor((Date.now()-state.started)/1000);
+  $("#clock").textContent = fmt(state.elapsed);
+}
+function startClock(){ if(timer) clearInterval(timer); timer=setInterval(function(){tick();save();},1000); }
+
+function show(id){
+  ["start","exam","results"].forEach(function(s){ $("#"+s).classList.toggle("hidden", s!==id); });
+}
+
+function renderChips(){
+  $("#count").textContent = answered()+" / "+Q.length;
+  $("#progbar").style.width = (answered()/Q.length*100)+"%";
+}
+
+function renderGrid(){
+  var g = $("#grid"); g.innerHTML="";
+  Q.forEach(function(q,idx){
+    var b=document.createElement("button");
+    b.textContent=q.n;
+    if(state.done){ b.className = (state.ans[idx]===q.a) ? "ok" : "no"; }
+    else {
+      if(state.ans[idx]!=null) b.classList.add("done");
+      if(state.flags[idx]) b.classList.add("flag2");
+      if(idx===state.i) b.classList.add("cur");
+    }
+    b.onclick=function(){ if(state.done){ jumpReview(idx); } else { state.i=idx; renderQ(); } };
+    g.appendChild(b);
+  });
+}
+
+function renderQ(){
+  var q = Q[state.i];
+  $("#qnum").textContent = q.n;
+  $("#qtag").textContent = q.ch;
+  $("#qtext").textContent = q.q;
+  var box = $("#opts"); box.innerHTML="";
+  q.opts.forEach(function(o,i){
+    var b=document.createElement("button");
+    b.className="opt"+(state.ans[state.i]===i?" sel":"");
+    b.innerHTML='<span class="k">'+LET[i]+'</span><span></span>';
+    b.lastChild.textContent=o;
+    b.onclick=function(){ state.ans[state.i]=i; save(); renderQ(); renderGrid(); renderChips();
+      if(state.i<Q.length-1) setTimeout(function(){state.i++;renderQ();renderGrid();},160); };
+    box.appendChild(b);
+  });
+  $("#flagbtn").classList.toggle("on", !!state.flags[state.i]);
+  $("#prev").disabled = state.i===0;
+  $("#next").disabled = state.i===Q.length-1;
+  renderChips(); renderGrid();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+$("#flagbtn").onclick=function(){ state.flags[state.i]=!state.flags[state.i]; save(); renderQ(); };
+$("#prev").onclick=function(){ if(state.i>0){state.i--;renderQ();} };
+$("#next").onclick=function(){ if(state.i<Q.length-1){state.i++;renderQ();} };
+document.addEventListener("keydown",function(e){
+  if($("#exam").classList.contains("hidden")) return;
+  if(e.key==="ArrowRight"){ $("#next").click(); }
+  if(e.key==="ArrowLeft"){ $("#prev").click(); }
+  var n = "1234".indexOf(e.key);
+  if(n>-1 && n<Q[state.i].opts.length){ state.ans[state.i]=n; save(); renderQ(); renderGrid(); }
+});
+
+$("#submit").onclick=function(){
+  var left = Q.length-answered();
+  if(left>0 && !confirm(left+" question"+(left>1?"s are":" is")+" unanswered. Submit anyway?")) return;
+  finish();
+};
+
+function finish(){
+  state.done=true; if(timer) clearInterval(timer); save();
+  var right=0, by={};
+  Q.forEach(function(q,i){
+    by[q.ch] = by[q.ch] || {r:0,t:0};
+    by[q.ch].t++;
+    if(state.ans[i]===q.a){ right++; by[q.ch].r++; }
+  });
+  var pct = Math.round(right/Q.length*100);
+  $("#pct").textContent = pct+"%";
+  $("#scoreline").textContent = right+" of "+Q.length+" correct in "+fmt(state.elapsed)+".";
+  var bd=$("#breakdown"); bd.innerHTML="";
+  Object.keys(by).forEach(function(k){
+    var d=by[k], row=document.createElement("div"); row.className="bdrow";
+    row.innerHTML='<span></span><span class="bar2"><i style="width:'+(d.r/d.t*100)+'%"></i></span><span class="muted">'+d.r+"/"+d.t+"</span>";
+    row.firstChild.textContent=k;
+    bd.appendChild(row);
+  });
+  renderReview(); renderGrid(); show("results");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderReview(){
+  var box=$("#review"); box.innerHTML="";
+  Q.forEach(function(q,i){
+    var ok = state.ans[i]===q.a;
+    if(wrongOnly && ok) return;
+    var d=document.createElement("div"); d.className="revq"; d.id="rev"+i;
+    var h=document.createElement("div"); h.className="qhead";
+    h.innerHTML='<span class="qnum">'+q.n+'</span><span class="tag"></span>';
+    h.children[1].textContent=q.ch;
+    d.appendChild(h);
+    var t=document.createElement("div"); t.className="qtext"; t.textContent=q.q; d.appendChild(t);
+    var ob=document.createElement("div"); ob.className="opts";
+    q.opts.forEach(function(o,j){
+      var b=document.createElement("div"); b.className="opt locked";
+      if(j===q.a) b.classList.add("right");
+      else if(state.ans[i]===j) b.classList.add("wrong");
+      b.innerHTML='<span class="k">'+LET[j]+'</span><span></span>';
+      b.lastChild.textContent=o;
+      ob.appendChild(b);
+    });
+    d.appendChild(ob);
+    var e=document.createElement("div"); e.className="exp";
+    var lab=document.createElement("b");
+    lab.textContent = (state.ans[i]==null ? "Not answered" : ok ? "Correct" : "Missed") + " - answer " + LET[q.a] + ". ";
+    e.appendChild(lab);
+    e.appendChild(document.createTextNode(q.e));
+    d.appendChild(e);
+    box.appendChild(d);
+  });
+}
+function jumpReview(i){
+  wrongOnly=false; renderReview();
+  var el=document.getElementById("rev"+i); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("#wrongonly").onclick=function(){
+  wrongOnly=!wrongOnly; this.textContent = wrongOnly ? "Show every question" : "Show only what I missed";
+  renderReview();
+};
+$("#retake").onclick=function(){
+  state={i:0,ans:{},flags:{},started:Date.now(),elapsed:0,done:false};
+  wrongOnly=false; $("#wrongonly").textContent="Show only what I missed";
+  save(); startClock(); renderQ(); show("exam");
+};
+$("#startbtn").onclick=function(){
+  state={i:0,ans:{},flags:{},started:Date.now(),elapsed:0,done:false};
+  save(); startClock(); renderQ(); show("exam");
+};
+$("#resumebtn").onclick=function(){
+  var s=load(); if(!s) return;
+  state=s; state.started=Date.now()-(state.elapsed||0)*1000;
+  if(state.done){ finish(); } else { startClock(); renderQ(); show("exam"); }
+};
+
+(function init(){
+  var s=load();
+  if(s && (Object.keys(s.ans||{}).length || s.done)){
+    $("#resumebtn").hidden=false;
+    $("#resumebtn").textContent = s.done ? "See my last results" : "Resume saved attempt ("+Object.keys(s.ans).length+" answered)";
+  }
+  renderChips();
+})();
+</script>
+</body>
+</html>
